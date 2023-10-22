@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import handLeft from './assets/images/hero/hand-left.png'
@@ -50,45 +53,164 @@ function App() {
         }
     ])
 
+    useEffect(() => {
+        // hero section
+        gsap.fromTo(['#hero-title', '#hero-subtitle'], {
+            x: 0,
+            opacity: 0
+        }, {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+        }, 0.2)
+        gsap.fromTo('#hero-cake-text-bg', {
+            y: -50,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+        }, 0.2)
+        gsap.fromTo('#hero-story-text-bg', {
+            y: 50,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+        }, 0.2)
+        gsap.fromTo(['#hero-hand-left'], {
+            x: -50,
+            opacity: 0
+        }, {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+        }, 0.2)
+        gsap.fromTo(['#hero-cake-left'], {
+            y: -50,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1.5,
+        }, 0.2)
+        gsap.fromTo(['#hero-cake-right'], {
+            x: 50,
+            opacity: 0
+        }, {
+            x: 0,
+            opacity: 1,
+            duration: 1.5,
+        }, 0.2)
+
+        // about section
+        gsap.fromTo(['#about-left'], {
+            y: 500
+        }, {
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#about-left"
+            }
+        })
+        gsap.fromTo(['#about-right-top', '#about-bg-right'], {
+            y: 400
+        }, {
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#about-bg-top"
+            }
+        })
+        gsap.fromTo(['#about-right-bottom',], {
+            y: 200
+        }, {
+            y: 0,
+            duration: 0.5,
+            scrollTrigger: {
+                trigger: "#about-right-bottom"
+            }
+        })
+
+        // menu section
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: "#menu-running-cake-top",
+                start: '10% 80%',
+                end: 'bottom 10%',
+                scrub: true,
+            }
+        }).to('#menu-running-cake-top', {
+            x: -800
+        })
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: "#menu-running-cake-bottom",
+                start: '10% 90%',
+                end: 'bottom 10%',
+                scrub: true,
+            }
+        }).to('#menu-running-cake-bottom', {
+            x: 800
+        })
+
+        // order section
+        gsap.fromTo(['#order-right'], {
+            y: 300,
+            opacity: 0
+        }, {
+            y: 0,
+            duration: 1,
+            opacity: 1,
+            scrollTrigger: {
+                trigger: "#order-right"
+            }
+        })
+    }, [])
+
     return (
     <>
         <section className='relative h-screen w-full flex justify-center items-center'>
             {/* hero */}
             {/* <div className='absolute left-0 bottom-10'> */}
-            <img src={handLeft} alt="" className='absolute left-0 bottom-10' />
-            <img src={cakeLeft} alt="" className='absolute left-12 bottom-24' />
-            <img src={cakeRight} alt="" className='absolute right-0 top-10' />
-            <img src={cakeText} className='absolute left-0 top-10' />
-            <img src={storyText} className='absolute right-0 bottom-10' />
+            <div id='hero-all-cake-left'>
+                <img id='hero-hand-left' src={handLeft} alt="" className='absolute left-0 bottom-10' />
+                <img id='hero-cake-left' src={cakeLeft} alt="" className='absolute left-12 bottom-24' />
+            </div>
+            <img id='hero-cake-right' src={cakeRight} alt="" className='absolute right-0 top-10' />
+            <img id='hero-cake-text-bg' src={cakeText} className='absolute left-0 top-10' />
+            <img id='hero-story-text-bg' src={storyText} className='absolute right-0 bottom-10' />
             {/* </div> */}
             <div className='text-center leading-none'>
-                <h1 className='font-extrabold text-[154px]'>Cake Story</h1>
-                <h2 className='font-medium text-4xl'>Where Every Slice is a Chapter</h2>
+                <h1 id='hero-title' className='font-extrabold text-[154px]'>Cake Story</h1>
+                <h2 id='hero-subtitle' className='font-medium text-4xl'>Where Every Slice is a Chapter</h2>
             </div>
         </section>
-        <section className='relative w-full overflow-hidden'>
-            <img src={paperBg} alt="" className='absolute top-0 right-0 z-10' />
-            <img src={leaves} alt="" className='absolute top-0 right-[27%] z-30 scale-75' />
+        <section id='about-section' className='relative w-full overflow-hidden'>
+            <div id='about-bg-right'>
+                <img src={paperBg} alt="" className='absolute top-0 right-0 z-10' />
+                <img src={leaves} alt="" className='absolute top-0 right-[27%] z-30 scale-75' />
+            </div>
             <img src={flyingStrawberryBg} alt="" className='absolute bottom-20 left-1/2 right-1/2 -translate-x-1/2 translate-y-0 z-10 opacity-50 scale-125' />
-            {/* <img src={flyingCupcakesBg} alt="" className='absolute top-2/3 left-1/2 right-1/2 -translate-x-1/2 translate-y-0 z-10' /> */}
             <div className='container mx-auto flex pt-20'>
-                <div className='w-1/2'>
+                <div id='about-left' className='w-1/2'>
                     <div>
                         <h2 className='text-5xl font-semibold'>Cake Story</h2>
                         <p className='text-xl mt-4 w-3/6 leading-tight'>At Cake Story, we believe that every cake is a story waiting to be told. Whether it's a birthday cake for a loved one, a wedding cake for the happiest day of your life, or a simple treat to enjoy on a whim, our cakes are more than just desserts - they're delicious works of art that tell your unique story.</p>
                     </div>
-                    <img src={frontShop} alt="" className='mt-8' />
+                    <img id='about-front-shop' src={frontShop} alt="" className='mt-8' />
                     <div>
                         <p className='text-xl mt-8 w-3/6 leading-tight'>Whether you're looking for a classic cake like a chocolate fudge cake or a more unique creation like a red velvet cake with cream cheese frosting, we have something to satisfy everyone's taste buds. We also offer a wide variety of gluten-free, vegan, and other dietary restriction-friendly options.</p>
                         <p className='text-2xl mt-4'>-Every Slice is a Chapter-</p>
                     </div>
                 </div>
-                <div className='w-1/2'>
-                    <div className='flex justify-center translate-x-10 relative z-20'>
-                        <img src={menuShop} alt="" className='' />
+                <div id='about-right' className='w-1/2'>
+                    <div id='about-right-top' className='flex justify-center translate-x-10 relative z-20'>
+                        <img id='about-menu-shop' src={menuShop} alt="" className='' />
                     </div>
-                    <div className='flex justify-end translate-x-20 mt-20'>
-                        <img src={InsideShop} alt="" className='' />
+                    <div id='about-right-bottom' className='flex justify-end translate-x-20 mt-20'>
+                        <img id='about-inside-shop' src={InsideShop} alt="" className='' />
                     </div>
                 </div>
             </div>
@@ -96,7 +218,7 @@ function App() {
         <section className='w-full h-full pt-20 overflow-hidden'>
             <div className='relative h-80 w-full'>
                 <img src={cakeText} className='absolute left-0 top-10' />
-                <img src={runningCakesBg} className='absolute -right-1/3 top-10' />
+                <img id='menu-running-cake-top' src={runningCakesBg} className='absolute -right-1/3 top-10' />
             </div>
             <div className='relative w-full h-screen my-10 flex items-center'>
                 <img src={paperLongBg} alt="" className='absolute top-[35%]' />
@@ -105,8 +227,8 @@ function App() {
                     <h3 className='text-5xl font-semibold'>Our Menu</h3>
                     <div className='mt-20 relative z-30 grid grid-cols-2'>
                         {
-                            menu.map((item) => {
-                                return <div key={item} className='flex'>
+                            menu.map((item, id) => {
+                                return <div key={id} className='flex'>
                                     <p className='text-3xl leading-loose'>{item.name}</p>
                                     <div className='w-1/3 border-b border-orange-400 ml-4 mb-6'></div>
                                     <div className='flex items-center'>
@@ -121,7 +243,7 @@ function App() {
             </div>
             <div className='relative h-80 w-full'>
                 <img src={storyText} className='absolute right-0 bottom-0' />
-                <img src={runningCakesBg} className='absolute -left-1/3 bottom-0 -scale-y-100' />
+                <img id='menu-running-cake-bottom' src={runningCakesBg} className='absolute -left-1/3 bottom-0 -scale-y-100' />
             </div>
         </section>
         <section className='relative w-full h-screen pt-20'>
@@ -141,13 +263,13 @@ function App() {
                             </div>
                         </form>
                     </div>
-                    <div className='w-2/3 ml-10'>
+                    <div id='order-right' className='w-2/3 ml-10'>
                         <img src={loginBg} alt="" />
                     </div>
                 </div>
             </div>
             <div className='absolute bottom-0 bg-[#EF8B5D] h-10 w-full text-white flex justify-center items-center'>
-                @cakestory
+                ©2023 copyright @cakestory
             </div>
         </section>
     </>
