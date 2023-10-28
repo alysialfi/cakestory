@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import handLeft from './assets/images/hero/hand-left.png'
 import cakeLeft from './assets/images/hero/cake-left.png'
 import cakeRight from './assets/images/hero/cake-right.png'
@@ -15,7 +13,6 @@ import menuShop from './assets/images/about/menu.jpg'
 import paperBg from './assets/images/decorations/paper.png'
 import leaves from './assets/images/decorations/leaves.png'
 import flyingStrawberryBg from './assets/images/decorations/flying-strawberry-bg.png'
-import flyingCupcakesBg from './assets/images/decorations/flying-cupcakes-bg.png'
 import runningCakesBg from './assets/images/decorations/running-cakes.png'
 import paperLongBg from './assets/images/decorations/paper-long.png'
 import leavesLong from './assets/images/decorations/leaves-long.png'
