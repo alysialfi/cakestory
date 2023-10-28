@@ -49,6 +49,27 @@ function App() {
             price: 20000
         }
     ])
+    for (let a of menu) {
+        let b = a.makanan + a.price + '\n'
+        console.log(b)
+    }
+
+    const menubaru = {
+        name: 'geprek',
+        price: 5000
+    }
+    menu.pop()
+    const [formData, setFormData] = useState({username: '', password: ''});
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        alert(`username: ${formData.username}, password: ${formData.password}`);
+    };
 
     useEffect(() => {
         // hero section
@@ -168,20 +189,18 @@ function App() {
 
     return (
     <>
-        <section className='relative h-screen w-full flex justify-center items-center'>
+        <section className='relative h-screen w-full flex justify-center items-center overflow-hidden'>
             {/* hero */}
-            {/* <div className='absolute left-0 bottom-10'> */}
             <div id='hero-all-cake-left'>
-                <img id='hero-hand-left' src={handLeft} alt="" className='absolute left-0 bottom-10' />
-                <img id='hero-cake-left' src={cakeLeft} alt="" className='absolute left-12 bottom-24' />
+                <img id='hero-hand-left' src={handLeft} alt="" className='absolute left-0 bottom-28 md:bottom-10 w-1/2 md:w-fit' />
+                <img id='hero-cake-left' src={cakeLeft} alt="" className='absolute left-12 bottom-40 md:bottom-24 w-1/2 md:w-fit' />
             </div>
-            <img id='hero-cake-right' src={cakeRight} alt="" className='absolute right-0 top-10' />
+            <img id='hero-cake-right' src={cakeRight} alt="" className='absolute right-0 top-32 md:top-10 w-1/2 md:w-fit' />
             <img id='hero-cake-text-bg' src={cakeText} className='absolute left-0 top-10' />
             <img id='hero-story-text-bg' src={storyText} className='absolute right-0 bottom-10' />
-            {/* </div> */}
             <div className='text-center leading-none'>
-                <h1 id='hero-title' className='font-extrabold text-[154px]'>Cake Story</h1>
-                <h2 id='hero-subtitle' className='font-medium text-4xl'>Where Every Slice is a Chapter</h2>
+                <h1 id='hero-title' className='font-extrabold text-6xl md:text-[154px]'>Cake Story</h1>
+                <h2 id='hero-subtitle' className='font-medium text-2xl md:text-4xl'>Where Every Slice is a Chapter</h2>
             </div>
         </section>
         <section id='about-section' className='relative w-full overflow-hidden'>
@@ -249,15 +268,16 @@ function App() {
                 <h3 className='text-5xl font-semibold'>Order Us</h3>
                 <div className='flex mt-8'>
                     <div className='bg-white rounded-md p-8 w-1/3 h-full'>
-                        <form action="">
+                        <form id='login-form' onSubmit={handleSubmit}>
                             <div className='flex flex-col gap-2 text-xl'>
                                 <label htmlFor="username">Username</label>
-                                <input type="text" id='username' className='border border-[#EF8B5D] bg-white px-2 py-1 rounded-md' />
+                                <input type="text" id='username' name='username' value={formData.username} onChange={handleChange} className='border border-[#EF8B5D] bg-white px-2 py-1 rounded-md' />
                             </div>
                             <div className='flex flex-col gap-2 text-xl mt-8'>
-                                <label htmlFor="username">Password</label>
-                                <input type="text" id='username' className='border border-[#EF8B5D] bg-white px-2 py-1 rounded-md' />
+                                <label htmlFor="password">Password</label>
+                                <input type="text" id='password' name='password' value={formData.password} onChange={handleChange} className='border border-[#EF8B5D] bg-white px-2 py-1 rounded-md' />
                             </div>
+                            <button type='submit' className='w-full mt-6 rounded-md bg-[#EF8B5D] text-white py-2 hover:bg-orange-500'>Login</button>
                         </form>
                     </div>
                     <div id='order-right' className='w-2/3 ml-10'>
